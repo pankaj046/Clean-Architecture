@@ -4,16 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import dev.pankaj.cleanarchitecture.R
-import dev.pankaj.cleanarchitecture.databinding.FragmentNotificationsBinding
 import dev.pankaj.cleanarchitecture.databinding.FragmentStartBinding
-import dev.pankaj.cleanarchitecture.presentation.notifications.NotificationsViewModel
 
 
+@AndroidEntryPoint
 class StartFragment : Fragment() {
 
     private var _binding: FragmentStartBinding? = null
