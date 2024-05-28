@@ -17,13 +17,13 @@ hiltAndroid = "2.51.1"
 roomRuntime = "2.7.0-alpha02"
 datastorePreferences = "1.1.1"
 firebaseBom = "33.0.0"
-hiltAndroidCompiler = "2.51.1"
 converterGson = "2.11.0"
 retrofit = "2.11.0"
 okhttp = "5.0.0-alpha.14"
 okhttpUrlconnection = "5.0.0-alpha.14"
 loggingInterceptor = "5.0.0-alpha.14"
 gson = "2.11.0"
+kspVersion = "1.9.24-1.0.20"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -44,9 +44,8 @@ androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation
 
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
 
-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hiltAndroid" }
-hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
-
+hilt-android = { group = "com.google.dagger", name = "hilt-android" , version.ref = "hiltAndroid"}
+hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler" , version.ref = "hiltAndroid"}
 
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomRuntime" }
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastorePreferences" }
@@ -65,4 +64,5 @@ gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-
+kotlinAndroidKsp = { id = "com.google.devtools.ksp", version.ref ="kspVersion" }
+hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref ="hiltAndroid" }

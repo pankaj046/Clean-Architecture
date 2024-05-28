@@ -1,13 +1,15 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.kotlinAndroidKsp)
+    alias(libs.plugins.hiltAndroid)
 }
 
 android {
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 28
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -35,7 +37,7 @@ android {
         buildConfig = true
     }
 
-    flavorDimensions.addAll(listOf("environment"))
+    flavorDimensions += "environment"
 
     productFlavors {
         create("development") {
@@ -58,9 +60,7 @@ android {
     }
 }
 
-
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -71,10 +71,12 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.annotation)
     implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
+
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.datastore.preferences)
     implementation(platform(libs.firebase.bom))
-    implementation(libs.hilt.android.compiler)
     implementation(libs.converter.gson)
     implementation(libs.retrofit)
     implementation(libs.okhttp)

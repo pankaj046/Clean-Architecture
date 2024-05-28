@@ -8,8 +8,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import dev.pankaj.cleanarchitecture.App
 import dev.pankaj.cleanarchitecture.BuildConfig
-import dev.pankaj.cleanarchitecture.base.App
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
