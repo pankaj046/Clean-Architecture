@@ -1,4 +1,4 @@
-package dev.pankaj.cleanarchitecture.data.db.entity
+package dev.pankaj.cleanarchitecture.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

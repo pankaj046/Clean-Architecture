@@ -10,8 +10,11 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 import dev.pankaj.cleanarchitecture.databinding.ActivityControllerBinding
 
+
+@AndroidEntryPoint
 class ControllerActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityControllerBinding
@@ -46,7 +49,7 @@ class ControllerActivity : AppCompatActivity() {
                         binding.appbar.visibility = View.GONE
                         binding.navView.visibility = View.GONE
                     } else {
-                        navigateToHomeFragment(navController)
+                        navigateToHomeFragment(controller, arguments)
                     }
                 }
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications -> {
@@ -78,8 +81,8 @@ class ControllerActivity : AppCompatActivity() {
         return false
     }
 
-    private fun navigateToHomeFragment(navController: NavController) {
-        navController.navigate(R.id.navigation_home)
+    private fun navigateToHomeFragment(navController: NavController, arguments: Bundle?) {
+        navController.navigate(R.id.navigation_home, arguments)
     }
 
     private fun navigateToStartFragment(navController: NavController) {

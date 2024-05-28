@@ -42,7 +42,7 @@ android {
             dimension = "environment"
             namespace = "dev.pankaj.cleanarchitecture.dev"
             applicationId = "dev.pankaj.cleanarchitecture.dev"
-            buildConfigField("String", "BASE_URL", "\"https://development.api.com\"")
+            buildConfigField("String", "BASE_URL", "\"https://fakestoreapi.com\"")
             buildConfigField("String", "APP_VERSION", "\"1.0-dev\"")
             buildConfigField("String", "FIREBASE_CONFIG_FILE", "\"google-services-dev.json\"")
         }
