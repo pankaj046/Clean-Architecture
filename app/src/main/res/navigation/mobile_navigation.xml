@@ -24,6 +24,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_startFragment_to_permissionFragment"
+            app:destination="@id/permissionFragment" />
     </fragment>
 
     <fragment
@@ -58,5 +61,13 @@
         android:name="dev.pankaj.cleanarchitecture.presentation.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/permissionFragment"
+        android:name="dev.pankaj.cleanarchitecture.presentation.permission.PermissionFragment"
+        android:label="PermissionFragment" >
+        <action
+            android:id="@+id/action_permissionFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <!-- end Bottom navigation fragment-->
 </navigation>
