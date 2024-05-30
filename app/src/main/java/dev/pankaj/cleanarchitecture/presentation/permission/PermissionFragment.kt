@@ -1,16 +1,13 @@
 package dev.pankaj.cleanarchitecture.presentation.permission
 
 import android.Manifest
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +16,6 @@ import dev.pankaj.cleanarchitecture.databinding.FragmentPermissionBinding
 import dev.pankaj.cleanarchitecture.extensions.checkPermissionIsAllowed
 import dev.pankaj.cleanarchitecture.extensions.disable
 import dev.pankaj.cleanarchitecture.extensions.permissionStorage
-import dev.pankaj.cleanarchitecture.utils.PERMISSION_REQUEST_CODE
 
 @AndroidEntryPoint
 class PermissionFragment : Fragment(), View.OnClickListener {

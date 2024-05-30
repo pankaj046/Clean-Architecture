@@ -59,7 +59,7 @@ class ControllerActivity : AppCompatActivity() {
                         binding.appbar.visibility = View.VISIBLE
 
                     } else {
-                        navigateToStartFragment(navController)
+                        navigateToHomeFragment(navController, arguments)
                     }
                 }
                 else -> {
@@ -85,9 +85,6 @@ class ControllerActivity : AppCompatActivity() {
         navController.navigate(R.id.navigation_home, arguments)
     }
 
-    private fun navigateToStartFragment(navController: NavController) {
-        navController.navigate(R.id.startFragment)
-    }
 }
 
 
