@@ -15,6 +15,7 @@ import dev.pankaj.cleanarchitecture.R
 import dev.pankaj.cleanarchitecture.databinding.FragmentPermissionBinding
 import dev.pankaj.cleanarchitecture.extensions.checkPermissionIsAllowed
 import dev.pankaj.cleanarchitecture.extensions.disable
+import dev.pankaj.cleanarchitecture.extensions.enable
 import dev.pankaj.cleanarchitecture.extensions.permissionStorage
 
 @AndroidEntryPoint
@@ -36,6 +37,11 @@ class PermissionFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         initListeners()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkPermissionIfAlreadyAllowed()
     }
 
     override fun onDestroyView() {
@@ -114,4 +120,39 @@ class PermissionFragment : Fragment(), View.OnClickListener {
                 binding.notification.disable()
             }
         }
+
+    private fun checkPermissionIfAlreadyAllowed(){
+        val context = binding.root.context
+        if (context.checkPermissionIsAllowed(Manifest.permission.CAMERA)) {
+            binding.camera.disable()
+        }else{
+            binding.camera.enable()
+        }
+
+        // Handle storage permission
+        if (context.checkPermissionIsAllowed(permissionStorage())) {
+            binding.storage.disable()
+        }else{
+            binding.storage.enable()
+        }
+
+        // Handle microphone permission
+        if (context.checkPermissionIsAllowed(Manifest.permission.RECORD_AUDIO)) {
+            binding.microphone.disable()
+        }else{
+            binding.microphone.enable()
+        }
+
+        // Handle notification permission
+        val notificationPermissionGranted = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+            context.checkPermissionIsAllowed(Manifest.permission.POST_NOTIFICATIONS)
+        }else{
+            true
+        }
+        if (notificationPermissionGranted) {
+            binding.notification.disable()
+        }else{
+            binding.notification.enable()
+        }
+    }
 }

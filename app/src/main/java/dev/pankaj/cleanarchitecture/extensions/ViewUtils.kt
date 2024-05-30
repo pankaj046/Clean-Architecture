@@ -23,8 +23,3 @@ fun View.disable() {
     this.isEnabled = false
     this.alpha = 0.5f
 }
-
-fun View.enabled() {
-    this.isEnabled = true
-    this.alpha = 0.5f
-}

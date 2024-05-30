@@ -93,6 +93,12 @@ fun Context.checkPermissionIsAllowed(): Boolean {
     }
 }
 
+fun Context.checkPermissionIsAllowed(permission: Array<String>): Boolean {
+    return permission.all {
+        ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED
+    }
+}
+
 fun Context.checkPermissionIsAllowed(permission: String): Boolean {
     return ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
 }
