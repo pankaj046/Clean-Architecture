@@ -20,4 +20,5 @@
     <string name="library_icon">Library</string>
     <string name="microphone_icon">Microphone</string>
     <string name="step_indicator">step indicator</string>
+    <string name="allow">Allow</string>
 </resources>

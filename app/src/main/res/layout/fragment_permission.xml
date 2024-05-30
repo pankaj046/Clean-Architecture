@@ -79,7 +79,8 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Allow"
+                android:text="@string/allow"
+                android:id="@+id/camera"
                 android:textColor="@color/purple_700"
                 android:backgroundTint="@color/purple_500" />
         </LinearLayout>
@@ -114,7 +115,8 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Allow"
+                android:text="@string/allow"
+                android:id="@+id/storage"
                 android:textColor="@color/purple_700"
                 android:backgroundTint="@color/purple_500" />
         </LinearLayout>
@@ -149,7 +151,8 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Allow"
+                android:text="@string/allow"
+                android:id="@+id/microphone"
                 android:textColor="@color/purple_700"
                 android:backgroundTint="@color/purple_500" />
         </LinearLayout>
@@ -157,6 +160,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:id="@+id/line3"
             android:background="@color/teal_200"
             android:layout_marginVertical="8dp" />
 
@@ -164,6 +168,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:id="@+id/rootNotification"
             android:gravity="center_vertical">
 
             <ImageView
@@ -184,7 +189,8 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Allow"
+                android:text="@string/allow"
+                android:id="@+id/notification"
                 android:textColor="@color/purple_700"
                 android:backgroundTint="@color/purple_500" />
         </LinearLayout>
