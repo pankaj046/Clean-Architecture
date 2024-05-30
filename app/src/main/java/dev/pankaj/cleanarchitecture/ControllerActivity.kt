@@ -43,7 +43,7 @@ class ControllerActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when (destination.id) {
-                R.id.startFragment, R.id.loginFragment -> {
+                R.id.startFragment, R.id.loginFragment, R.id.permissionFragment -> {
                     if (!isUserLoggedIn()) {
                         supportActionBar?.hide()
                         binding.appbar.visibility = View.GONE

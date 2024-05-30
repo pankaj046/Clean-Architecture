@@ -9,6 +9,7 @@ import androidx.navigation.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import dev.pankaj.cleanarchitecture.R
 import dev.pankaj.cleanarchitecture.databinding.FragmentStartBinding
+import dev.pankaj.cleanarchitecture.extensions.checkPermissionIsAllowed
 
 
 @AndroidEntryPoint
@@ -25,7 +26,13 @@ class StartFragment : Fragment() {
         _binding = FragmentStartBinding.inflate(inflater, container, false)
         val root: View = binding.root
         binding.openLogin.setOnClickListener {
-            it.findNavController().navigate(R.id.action_startFragment_to_loginFragment)
+            it?.findNavController()?.let {controller->
+                if (it.context.checkPermissionIsAllowed()){
+                    controller.navigate(R.id.action_startFragment_to_loginFragment)
+                }else {
+                    controller.navigate(R.id.action_startFragment_to_permissionFragment)
+                }
+            }
         }
         return root
     }
