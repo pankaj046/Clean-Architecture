@@ -3,6 +3,7 @@ sealed class Result<out T : Any> {
 
     data class Success<out T : Any>(val data: T) : Result<T>()
     data class Error(val exception: Exception) : Result<Nothing>()
+    data class Message(val msg: String) : Result<Nothing>()
     data class Loading(val isLoading: Boolean) : Result<Nothing>()
 
     override fun toString(): String {
@@ -10,6 +11,7 @@ sealed class Result<out T : Any> {
             is Success<*> -> "Success[data=$data]"
             is Error -> "Error[exception=$exception]"
             is Loading -> "Error[exception=$isLoading]"
+            is Message -> "Error[exception=$msg]"
         }
     }
 }

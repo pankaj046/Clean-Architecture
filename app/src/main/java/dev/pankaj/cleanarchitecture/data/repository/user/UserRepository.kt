@@ -1,6 +1,6 @@
-package dev.pankaj.cleanarchitecture.data.repository
+package dev.pankaj.cleanarchitecture.data.repository.user
 
-import dev.pankaj.cleanarchitecture.data.dataSource.IUserLocalDataSource
+import dev.pankaj.cleanarchitecture.data.dataSource.user.IUserLocalDataSource
 import dev.pankaj.cleanarchitecture.data.local.entity.UserEntity
 import dev.pankaj.cleanarchitecture.domain.repository.IUserRepository
 
