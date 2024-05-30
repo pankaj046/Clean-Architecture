@@ -97,7 +97,7 @@ class PermissionFragment : Fragment(), View.OnClickListener {
 
             // Handle storage permission
             var storagePermissionGranted = false
-                permissionStorage().forEach {
+                permissionStorage().map {
                     storagePermissionGranted = permissions[it] == true
             }
             if (storagePermissionGranted) {
