@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.scopes.ViewModelScoped
 import dev.pankaj.cleanarchitecture.App
 import dev.pankaj.cleanarchitecture.data.remote.model.LoginRequest
+import dev.pankaj.cleanarchitecture.data.remote.model.LoginResponse
 import dev.pankaj.cleanarchitecture.domain.usecase.AuthUseCase
 import dev.pankaj.cleanarchitecture.domain.usecase.UserUseCase
 import kotlinx.coroutines.launch
@@ -20,17 +21,19 @@ class AuthViewModel(
     private val authUseCase: AuthUseCase,
 ) : AndroidViewModel(app) {
 
-    private val _loginResponse: MutableLiveData<Result<String>> = MutableLiveData()
-    val loginResponse: LiveData<Result<String>> = _loginResponse
+    private val _loginResponse: MutableLiveData<Result<LoginResponse>> = MutableLiveData()
+    val loginResponse: LiveData<Result<LoginResponse>> = _loginResponse
 
     fun login(loginRequest: LoginRequest) {
         viewModelScope.launch {
             _loginResponse.value = Result.Loading(true)
             if (isNetworkAvailable(app)){
+                authUseCase.login(loginRequest).apply {
+                    _loginResponse.value = this
+                    _loginResponse.value = Result.Loading(false)
+                }
+            }else {
                 _loginResponse.value = Result.Message("No Internet connection")
-            }
-            authUseCase.login(loginRequest).apply {
-                _loginResponse.value = this
                 _loginResponse.value = Result.Loading(false)
             }
         }

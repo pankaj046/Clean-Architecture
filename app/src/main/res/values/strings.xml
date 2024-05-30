@@ -22,4 +22,6 @@
     <string name="step_indicator">step indicator</string>
     <string name="allow">Allow</string>
     <string name="start_screen">START SCREEN</string>
+    <string name="error_username_required">Email is required</string>
+    <string name="error_password_required">Password is required</string>
 </resources>

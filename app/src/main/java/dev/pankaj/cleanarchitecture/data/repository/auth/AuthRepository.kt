@@ -1,16 +1,14 @@
 package dev.pankaj.cleanarchitecture.data.repository.auth
 
 import dev.pankaj.cleanarchitecture.data.dataSource.auth.IAuthDataSource
-import dev.pankaj.cleanarchitecture.data.dataSource.user.IUserLocalDataSource
-import dev.pankaj.cleanarchitecture.data.local.entity.UserEntity
 import dev.pankaj.cleanarchitecture.data.remote.model.LoginRequest
+import dev.pankaj.cleanarchitecture.data.remote.model.LoginResponse
 import dev.pankaj.cleanarchitecture.domain.repository.IAuthRepository
-import dev.pankaj.cleanarchitecture.domain.repository.IUserRepository
 import dev.pankaj.cleanarchitecture.utils.*
 
 class AuthRepository(private val authDataSource: IAuthDataSource) : IAuthRepository {
 
-    override suspend fun login(loginRequest: LoginRequest): Result<String> {
+    override suspend fun login(loginRequest: LoginRequest): Result<LoginResponse> {
         return try {
             val response = authDataSource.login(loginRequest)
             if (response.isSuccessful) {
