@@ -12,6 +12,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import dev.pankaj.cleanarchitecture.databinding.ActivityControllerBinding
+import dev.pankaj.cleanarchitecture.extensions.hide
+import dev.pankaj.cleanarchitecture.extensions.show
 
 
 @AndroidEntryPoint
@@ -46,8 +48,8 @@ class ControllerActivity : AppCompatActivity() {
                 R.id.startFragment, R.id.loginFragment, R.id.permissionFragment -> {
                     if (!isUserLoggedIn()) {
                         supportActionBar?.hide()
-                        binding.appbar.visibility = View.GONE
-                        binding.navView.visibility = View.GONE
+                        binding.appbar.hide()
+                        binding.navView.hide()
                     } else {
                         navigateToHomeFragment(controller, arguments)
                     }
@@ -55,16 +57,16 @@ class ControllerActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications -> {
                     if (isUserLoggedIn()) {
                         supportActionBar?.show()
-                        binding.navView.visibility = View.VISIBLE
-                        binding.appbar.visibility = View.VISIBLE
-
+                        binding.navView.show()
+                        binding.appbar.show()
                     } else {
-                        navigateToHomeFragment(navController, arguments)
+                        navigateToStartFragment(navController)
                     }
                 }
                 else -> {
                     supportActionBar?.show()
-                    binding.navView.visibility = View.VISIBLE
+                    binding.navView.show()
+                    binding.appbar.show()
                 }
             }
         }
@@ -85,6 +87,9 @@ class ControllerActivity : AppCompatActivity() {
         navController.navigate(R.id.navigation_home, arguments)
     }
 
+    private fun navigateToStartFragment(navController: NavController) {
+        navController.navigate(R.id.startFragment)
+    }
 }
 
 
