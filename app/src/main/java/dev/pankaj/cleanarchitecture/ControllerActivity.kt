@@ -1,6 +1,8 @@
 package dev.pankaj.cleanarchitecture
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
@@ -21,10 +23,10 @@ import javax.inject.Inject
 class ControllerActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityControllerBinding
-
+    private var isCartVisible = true
     @Inject
     lateinit var sharedPreferencesUtil: SharedPreferencesUtil
-
+    private var navController: NavController?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -36,18 +38,19 @@ class ControllerActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = binding.navView
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home,
-                R.id.navigation_dashboard,
-                R.id.navigation_notifications
+                R.id.navigation_profile
             )
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        navController?.let {
+            setupActionBarWithNavController(it, appBarConfiguration)
+            navView.setupWithNavController(it)
+        }
 
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+        navController?.addOnDestinationChangedListener { controller, destination, arguments ->
             when (destination.id) {
                 R.id.startFragment, R.id.loginFragment, R.id.permissionFragment -> {
                     if (!isUserLoggedIn()) {
@@ -58,16 +61,22 @@ class ControllerActivity : AppCompatActivity() {
                         navigateToHomeFragment(controller, arguments)
                     }
                 }
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications -> {
+                R.id.navigation_home, R.id.navigation_profile -> {
                     if (isUserLoggedIn()) {
                         supportActionBar?.show()
                         binding.navView.show()
                         binding.appbar.show()
+                        updateCartStatus(true)
                     } else {
-                        navigateToStartFragment(navController)
+                        navigateToStartFragment(controller)
                     }
                 }
+                R.id.navigation_cart -> {
+                    updateCartStatus(false)
+                    binding.navView.hide()
+                }
                 else -> {
+                    updateCartStatus(true)
                     supportActionBar?.show()
                     binding.navView.show()
                     binding.appbar.show()
@@ -81,7 +90,11 @@ class ControllerActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
-    // Method to check if user is logged in
+    private fun updateCartStatus(show: Boolean) {
+        isCartVisible = show
+        invalidateMenu()
+    }
+
     private fun isUserLoggedIn(): Boolean {
         return sharedPreferencesUtil.containKey("token")
     }
@@ -92,6 +105,35 @@ class ControllerActivity : AppCompatActivity() {
 
     private fun navigateToStartFragment(navController: NavController) {
         navController.navigate(R.id.startFragment)
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+
+        val menuItem = menu?.findItem(R.id.action_cart)
+        val actionView = menuItem?.actionView
+        menuItem?.isVisible = isCartVisible
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_cart -> {
+                navController?.navigate(R.id.navigation_cart)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun updateCartBadge(count: Int) {
+      /*  if (count > 0) {
+            cartBadge.text = count.toString()
+            cartBadge.visibility = View.VISIBLE
+        } else {
+            cartBadge.visibility = View.GONE
+        }*/
     }
 }
 

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_dashboard">
+    app:startDestination="@+id/navigation_home">
 
     <fragment
         android:id="@+id/startFragment"
@@ -57,19 +57,28 @@
         android:name="dev.pankaj.cleanarchitecture.presentation.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home"
-        app:popUpToInclusive="true"/>
+        app:popUpToInclusive="true">
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_cart"
+            app:destination="@id/navigation_cart"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="dev.pankaj.cleanarchitecture.presentation.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard"/>
+        android:id="@+id/navigation_cart"
+        android:name="dev.pankaj.cleanarchitecture.presentation.cart.CartFragment"
+        android:label="@string/title_cart"
+        tools:layout="@layout/fragment_cart"/>
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="dev.pankaj.cleanarchitecture.presentation.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_profile"
+        android:name="dev.pankaj.cleanarchitecture.presentation.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" >
+    </fragment>
     <fragment
         android:id="@+id/permissionFragment"
         android:name="dev.pankaj.cleanarchitecture.presentation.permission.PermissionFragment"
