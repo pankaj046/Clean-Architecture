@@ -3,7 +3,6 @@ package dev.pankaj.cleanarchitecture.presentation.auth
 import androidx.lifecycle.ViewModelProvider
 import androidx.fragment.app.Fragment
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -91,7 +90,6 @@ class LoginFragment : Fragment() {
     }
 
     private fun handleLoginSuccess(data: LoginResponse) {
-        Log.e("jdfh", "handleLoginSuccess: " +data.token )
         findNavController().navigate(R.id.action_loginFragment_to_navigation_home)
     }
 

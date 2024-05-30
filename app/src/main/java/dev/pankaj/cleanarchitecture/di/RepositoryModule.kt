@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.pankaj.cleanarchitecture.data.dataSource.auth.IAuthDataSource
 import dev.pankaj.cleanarchitecture.data.dataSource.user.IUserLocalDataSource
+import dev.pankaj.cleanarchitecture.data.local.prefmanager.SharedPreferencesUtil
 import dev.pankaj.cleanarchitecture.data.repository.auth.AuthRepository
 import dev.pankaj.cleanarchitecture.data.repository.user.UserRepository
 import dev.pankaj.cleanarchitecture.domain.repository.IAuthRepository
@@ -26,10 +27,12 @@ class RepositoryModule {
 
     @Provides
     fun provideAuthRepository(
-        authDataSource: IAuthDataSource
+        authDataSource: IAuthDataSource,
+        sharedPreferencesUtil: SharedPreferencesUtil
     ): IAuthRepository {
         return AuthRepository(
-            authDataSource
+            authDataSource,
+            sharedPreferencesUtil
         )
     }
 

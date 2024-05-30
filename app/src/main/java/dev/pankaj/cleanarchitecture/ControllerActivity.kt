@@ -1,7 +1,6 @@
 package dev.pankaj.cleanarchitecture
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
@@ -11,15 +10,20 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import dev.pankaj.cleanarchitecture.data.local.prefmanager.SharedPreferencesUtil
 import dev.pankaj.cleanarchitecture.databinding.ActivityControllerBinding
 import dev.pankaj.cleanarchitecture.extensions.hide
 import dev.pankaj.cleanarchitecture.extensions.show
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class ControllerActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityControllerBinding
+
+    @Inject
+    lateinit var sharedPreferencesUtil: SharedPreferencesUtil
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,8 +83,7 @@ class ControllerActivity : AppCompatActivity() {
 
     // Method to check if user is logged in
     private fun isUserLoggedIn(): Boolean {
-        val sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
-        return false
+        return sharedPreferencesUtil.containKey("token")
     }
 
     private fun navigateToHomeFragment(navController: NavController, arguments: Bundle?) {
