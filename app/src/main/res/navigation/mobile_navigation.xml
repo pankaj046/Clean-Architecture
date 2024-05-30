@@ -71,13 +71,24 @@
         android:id="@+id/navigation_cart"
         android:name="dev.pankaj.cleanarchitecture.presentation.cart.CartFragment"
         android:label="@string/title_cart"
-        tools:layout="@layout/fragment_cart"/>
+        tools:layout="@layout/fragment_cart"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"/>
 
     <fragment
         android:id="@+id/navigation_profile"
         android:name="dev.pankaj.cleanarchitecture.presentation.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_cart"
+            app:destination="@id/navigation_cart"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/permissionFragment"

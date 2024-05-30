@@ -76,7 +76,7 @@ class ControllerActivity : AppCompatActivity() {
                     binding.navView.hide()
                 }
                 else -> {
-                    updateCartStatus(true)
+                    updateCartStatus(false)
                     supportActionBar?.show()
                     binding.navView.show()
                     binding.appbar.show()
@@ -120,7 +120,14 @@ class ControllerActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_cart -> {
-                navController?.navigate(R.id.navigation_cart)
+                navController?.let {
+                    val destination = if (it.currentDestination?.id == R.id.navigation_home){
+                        R.id.action_navigation_home_to_navigation_cart
+                    }else {
+                        R.id.action_navigation_profile_to_navigation_cart
+                    }
+                    it.navigate(destination)
+                }
                 return true
             }
         }
