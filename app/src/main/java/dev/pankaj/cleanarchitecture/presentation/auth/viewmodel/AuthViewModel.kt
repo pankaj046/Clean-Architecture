@@ -29,9 +29,10 @@ class AuthViewModel(
             if (isNetworkAvailable(app)){
                 _loginResponse.value = Result.Message("No Internet connection")
             }
-            val result = authUseCase.login(loginRequest)
-            _loginResponse.value = result
-            _loginResponse.value = Result.Loading(false)
+            authUseCase.login(loginRequest).apply {
+                _loginResponse.value = this
+                _loginResponse.value = Result.Loading(false)
+            }
         }
     }
 

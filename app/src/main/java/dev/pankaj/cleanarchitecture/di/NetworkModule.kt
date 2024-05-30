@@ -10,6 +10,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import dev.pankaj.cleanarchitecture.App
 import dev.pankaj.cleanarchitecture.BuildConfig
+import dev.pankaj.cleanarchitecture.data.remote.api.ApiService
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -58,8 +59,6 @@ class NetworkModule {
         okHttpClientBuilder.writeTimeout(WRITE_TIMEOUT.toLong(), TimeUnit.SECONDS)
         okHttpClientBuilder.cache(cache)
         okHttpClientBuilder.addInterceptor(headerInterceptor)
-
-
         return okHttpClientBuilder.build()
     }
 
@@ -87,5 +86,11 @@ class NetworkModule {
     @Singleton
     fun provideContext(application: App): Context {
         return application.applicationContext
+    }
+
+    @Provides
+    @Singleton
+    fun provideApiService(retrofit: Retrofit): ApiService {
+        return retrofit.create(ApiService::class.java)
     }
 }

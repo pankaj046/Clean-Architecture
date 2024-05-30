@@ -4,7 +4,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import dev.pankaj.cleanarchitecture.domain.repository.IAuthRepository
 import dev.pankaj.cleanarchitecture.domain.repository.IUserRepository
+import dev.pankaj.cleanarchitecture.domain.usecase.AuthUseCase
 import dev.pankaj.cleanarchitecture.domain.usecase.UserUseCase
 import javax.inject.Singleton
 
@@ -19,4 +21,14 @@ class UseCaseModule {
     ): UserUseCase {
         return UserUseCase(userRepository)
     }
+
+
+    @Singleton
+    @Provides
+    fun provideAuthUseCase(
+        authRepository: IAuthRepository
+    ): AuthUseCase {
+        return AuthUseCase(authRepository)
+    }
 }
+
