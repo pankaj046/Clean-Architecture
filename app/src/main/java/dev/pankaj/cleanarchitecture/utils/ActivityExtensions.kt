@@ -16,7 +16,6 @@ import androidx.core.content.ContextCompat
 import dev.pankaj.cleanarchitecture.BuildConfig
 
 fun Activity.showToast(text: String, debug: Boolean = false) {
-    if (debug && !BuildConfig.DEBUG) return
     Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
 }
 

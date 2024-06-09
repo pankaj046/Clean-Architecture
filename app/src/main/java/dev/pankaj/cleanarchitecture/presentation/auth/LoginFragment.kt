@@ -6,12 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import dev.pankaj.cleanarchitecture.R
-import dev.pankaj.cleanarchitecture.data.remote.model.LoginRequest
-import dev.pankaj.cleanarchitecture.data.remote.model.LoginResponse
+import dev.pankaj.cleanarchitecture.data.remote.model.auth.LoginRequest
+import dev.pankaj.cleanarchitecture.data.remote.model.auth.LoginResponse
 import dev.pankaj.cleanarchitecture.databinding.FragmentLoginBinding
 import dev.pankaj.cleanarchitecture.extensions.disable
 import dev.pankaj.cleanarchitecture.extensions.enable
@@ -37,13 +36,13 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        viewModel = ViewModelProvider(this, factory)[AuthViewModel::class.java]
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this, factory)[AuthViewModel::class.java]
         addObserver()
         binding.login.setOnClickListener { validateAndLogin() }
     }
@@ -61,7 +60,8 @@ class LoginFragment : Fragment() {
             when (callBack) {
                 is CallBack.Success -> {
                     if (callBack.data){
-                        viewModel.login(LoginRequest(
+                        viewModel.login(
+                            LoginRequest(
                             binding.usernameEditText.trimText(),
                             binding.passwordEditText.trimText())
                         )
@@ -103,7 +103,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun showMessage(message: String?) {
-        Toast.makeText(requireContext(), message ?: "Something went wrong", Toast.LENGTH_SHORT).show()
+        requireActivity().showToast(message ?: "Something went wrong")
     }
 
 

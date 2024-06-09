@@ -6,9 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.scopes.ViewModelScoped
 import dev.pankaj.cleanarchitecture.App
-import dev.pankaj.cleanarchitecture.data.remote.model.LoginRequest
-import dev.pankaj.cleanarchitecture.data.remote.model.LoginResponse
-import dev.pankaj.cleanarchitecture.domain.model.auth.LoginUi
+import dev.pankaj.cleanarchitecture.data.remote.model.auth.LoginRequest
+import dev.pankaj.cleanarchitecture.data.remote.model.auth.LoginResponse
 import dev.pankaj.cleanarchitecture.domain.usecase.AuthUseCase
 import dev.pankaj.cleanarchitecture.domain.usecase.UserUseCase
 import kotlinx.coroutines.launch

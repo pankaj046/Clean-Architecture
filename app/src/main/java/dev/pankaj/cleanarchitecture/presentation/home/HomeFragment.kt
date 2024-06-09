@@ -4,37 +4,74 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import dev.pankaj.cleanarchitecture.data.remote.model.product.Product
 import dev.pankaj.cleanarchitecture.databinding.FragmentHomeBinding
+import dev.pankaj.cleanarchitecture.presentation.home.adapter.ProductAdapter
+import dev.pankaj.cleanarchitecture.presentation.home.viewmodel.ProductViewModel
+import dev.pankaj.cleanarchitecture.presentation.home.viewmodel.ProductViewModelFactory
+import dev.pankaj.cleanarchitecture.utils.CallBack
+import dev.pankaj.cleanarchitecture.utils.showToast
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var factory: ProductViewModelFactory
+    private lateinit var viewModel: ProductViewModel
+
+    private val productAdapter by lazy { ProductAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-
+        viewModel = ViewModelProvider(this, factory)[ProductViewModel::class.java]
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        return binding.root
+    }
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initAdapter()
+        addObserver()
+        viewModel.productList()
+    }
+
+    private fun initAdapter(){
+        val staggeredGridLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        binding.rvProduct.layoutManager = staggeredGridLayoutManager
+    }
+
+    private fun addObserver() {
+        viewModel.productResponse.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is CallBack.Loading -> setLoadingIndicator(result.isLoading)
+                is CallBack.Success -> handleLoginSuccess(result.data)
+                is CallBack.Error -> showMessage(result.exception.message)
+                is CallBack.Message -> showMessage(result.msg)
+            }
         }
-        return root
+    }
+
+    private fun handleLoginSuccess(data: List<Product>) {
+        productAdapter.updateProduct(data)
+    }
+
+    private fun setLoadingIndicator(loading: Boolean) {
+
+    }
+
+    private fun showMessage(message: String?) {
+        requireActivity().showToast(message ?: "Something went wrong")
     }
 
     override fun onDestroyView() {

@@ -1,8 +1,9 @@
 package dev.pankaj.cleanarchitecture.data.dataSource.auth
 
+import android.util.Log
 import dev.pankaj.cleanarchitecture.data.remote.api.ApiService
-import dev.pankaj.cleanarchitecture.data.remote.model.LoginRequest
-import dev.pankaj.cleanarchitecture.data.remote.model.LoginResponse
+import dev.pankaj.cleanarchitecture.data.remote.model.auth.LoginRequest
+import dev.pankaj.cleanarchitecture.data.remote.model.auth.LoginResponse
 import retrofit2.Response
 import javax.inject.Inject
 

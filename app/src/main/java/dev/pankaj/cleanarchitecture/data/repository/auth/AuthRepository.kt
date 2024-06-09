@@ -2,8 +2,8 @@ package dev.pankaj.cleanarchitecture.data.repository.auth
 
 import dev.pankaj.cleanarchitecture.data.dataSource.auth.IAuthDataSource
 import dev.pankaj.cleanarchitecture.data.local.prefmanager.SharedPreferencesUtil
-import dev.pankaj.cleanarchitecture.data.remote.model.LoginRequest
-import dev.pankaj.cleanarchitecture.data.remote.model.LoginResponse
+import dev.pankaj.cleanarchitecture.data.remote.model.auth.LoginRequest
+import dev.pankaj.cleanarchitecture.data.remote.model.auth.LoginResponse
 import dev.pankaj.cleanarchitecture.domain.repository.IAuthRepository
 import dev.pankaj.cleanarchitecture.utils.*
 
