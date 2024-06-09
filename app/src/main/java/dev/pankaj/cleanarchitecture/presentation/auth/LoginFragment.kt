@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -63,8 +62,8 @@ class LoginFragment : Fragment() {
                 is CallBack.Success -> {
                     if (callBack.data){
                         viewModel.login(LoginRequest(
-                            binding.username.editText?.trimText()!!,
-                            binding.password.editText?.trimText()!!)
+                            binding.usernameEditText.trimText(),
+                            binding.passwordEditText.trimText())
                         )
                     }else {
                         showMessage("Something went wrong")
@@ -81,8 +80,8 @@ class LoginFragment : Fragment() {
 
     private fun validateAndLogin() {
         viewModel.validateLogin(
-            binding.password.editText?.trimText()?:"",
-            binding.username.editText?.trimText()?:""
+            binding.usernameEditText.trimText(),
+            binding.passwordEditText.trimText()
         )
     }
 
