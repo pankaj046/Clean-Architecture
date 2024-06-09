@@ -10,6 +10,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import dev.pankaj.cleanarchitecture.App
 import dev.pankaj.cleanarchitecture.BuildConfig
+import dev.pankaj.cleanarchitecture.data.local.prefmanager.SharedPreferencesUtil
 import dev.pankaj.cleanarchitecture.data.remote.api.ApiService
 import okhttp3.Cache
 import okhttp3.Interceptor
@@ -51,6 +52,7 @@ class NetworkModule {
     @Singleton
     fun provideOkHttpClient(
         headerInterceptor: Interceptor,
+        loggingInterceptor: HttpLoggingInterceptor,
         cache: Cache
     ): OkHttpClient {
 
@@ -62,7 +64,6 @@ class NetworkModule {
         okHttpClientBuilder.addInterceptor(headerInterceptor)
 
         if (BuildConfig.DEBUG) {
-            val loggingInterceptor = HttpLoggingInterceptor()
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             okHttpClientBuilder.addInterceptor(loggingInterceptor)
         }
@@ -70,17 +71,17 @@ class NetworkModule {
         return okHttpClientBuilder.build()
     }
 
-
     @Provides
     @Singleton
-    fun provideHeaderInterceptor(): Interceptor {
-        return Interceptor {
-            val requestBuilder = it.request().newBuilder()
-            // Here you can add all headers you want by calling 'requestBuilder.addHeader(name ,  value)'
-            it.proceed(requestBuilder.build())
+    fun provideHeaderInterceptor(sharedPreferencesUtil: SharedPreferencesUtil): Interceptor {
+        return Interceptor { chain ->
+            val request = chain.request().newBuilder()
+            sharedPreferencesUtil.getString("token")?.let { authToken ->
+                request.addHeader("Authorization", "Bearer $authToken")
+            }
+            chain.proceed(request.build())
         }
     }
-
 
     @Provides
     @Singleton
@@ -100,5 +101,13 @@ class NetworkModule {
     @Singleton
     fun provideApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor {
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        return loggingInterceptor
     }
 }
