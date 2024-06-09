@@ -12,19 +12,19 @@ class AuthRepository(
     private val sharedPreferencesUtil: SharedPreferencesUtil
 ) : IAuthRepository {
 
-    override suspend fun login(loginRequest: LoginRequest): Result<LoginResponse> {
+    override suspend fun login(loginRequest: LoginRequest): CallBack<LoginResponse> {
         return try {
             val response = authDataSource.login(loginRequest)
             if (response.isSuccessful) {
                 response.body()?.let {
                     sharedPreferencesUtil.saveString("token", it.token)
-                    Result.Success(it)
-                } ?: Result.Message("Response body is null")
+                    CallBack.Success(it)
+                } ?: CallBack.Message("Response body is null")
             } else {
-                Result.Message("Login failed with code: ${response.code()}")
+                CallBack.Message("Login failed with code: ${response.code()}")
             }
         } catch (e: Exception) {
-            Result.Error(e)
+            CallBack.Error(e)
         }
     }
 }

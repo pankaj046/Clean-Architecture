@@ -5,5 +5,5 @@ import dev.pankaj.cleanarchitecture.data.remote.model.LoginResponse
 import dev.pankaj.cleanarchitecture.utils.*
 
 interface IAuthRepository {
-    suspend fun login(loginRequest: LoginRequest): Result<LoginResponse>
+    suspend fun login(loginRequest: LoginRequest): CallBack<LoginResponse>
 }

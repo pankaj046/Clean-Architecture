@@ -5,18 +5,18 @@ coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
-appcompat = "1.6.1"
+appcompat = "1.7.0"
 material = "1.12.0"
 constraintlayout = "2.1.4"
-lifecycleLivedataKtx = "2.8.0"
-lifecycleViewmodelKtx = "2.8.0"
+lifecycleLivedataKtx = "2.8.1"
+lifecycleViewmodelKtx = "2.8.1"
 navigationFragmentKtx = "2.7.7"
 navigationUiKtx = "2.7.7"
 annotation = "1.8.0"
 hiltAndroid = "2.51.1"
-roomRuntime = "2.7.0-alpha02"
+roomRuntime = "2.7.0-alpha03"
 datastorePreferences = "1.1.1"
-firebaseBom = "33.0.0"
+firebaseBom = "33.1.0"
 converterGson = "2.11.0"
 retrofit = "2.11.0"
 okhttp = "5.0.0-alpha.14"
@@ -24,6 +24,8 @@ okhttpUrlconnection = "5.0.0-alpha.14"
 loggingInterceptor = "5.0.0-alpha.14"
 gson = "2.11.0"
 kspVersion = "1.9.24-1.0.20"
+glide = "5.0.0-rc01"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -61,6 +63,8 @@ okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhtt
 okhttp-urlconnection = { group = "com.squareup.okhttp3", name = "okhttp-urlconnection", version.ref = "okhttpUrlconnection" }
 logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "loggingInterceptor" }
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+glideKsp = { group = "com.github.bumptech.glide", name = "ksp", version.ref = "glide" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

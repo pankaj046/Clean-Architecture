@@ -7,7 +7,7 @@ import dev.pankaj.cleanarchitecture.utils.*
 
 class AuthUseCase(private val iUserRepository: IAuthRepository){
 
-    suspend fun login(loginRequest: LoginRequest): Result<LoginResponse> {
+    suspend fun login(loginRequest: LoginRequest): CallBack<LoginResponse> {
         return iUserRepository.login(loginRequest)
     }
 }

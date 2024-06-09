@@ -73,6 +73,9 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 
+    implementation(libs.glide)
+    ksp(libs.glideKsp)
+
 
     implementation(libs.androidx.room.runtime)
     ksp(libs.room.compiler)

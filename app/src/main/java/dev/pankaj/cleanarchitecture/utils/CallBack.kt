@@ -1,10 +1,10 @@
 package dev.pankaj.cleanarchitecture.utils
-sealed class Result<out T : Any> {
+sealed class CallBack<out T : Any> {
 
-    data class Success<out T : Any>(val data: T) : Result<T>()
-    data class Error(val exception: Exception) : Result<Nothing>()
-    data class Message(val msg: String) : Result<Nothing>()
-    data class Loading(val isLoading: Boolean) : Result<Nothing>()
+    data class Success<out T : Any>(val data: T) : CallBack<T>()
+    data class Error(val exception: Exception) : CallBack<Nothing>()
+    data class Message(val msg: String) : CallBack<Nothing>()
+    data class Loading(val isLoading: Boolean) : CallBack<Nothing>()
 
     override fun toString(): String {
         return when (this) {

@@ -10,6 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.pankaj.cleanarchitecture.R
 import dev.pankaj.cleanarchitecture.databinding.FragmentStartBinding
 import dev.pankaj.cleanarchitecture.extensions.checkPermissionIsAllowed
+import dev.pankaj.cleanarchitecture.utils.navigateTo
 
 
 @AndroidEntryPoint
@@ -28,9 +29,9 @@ class StartFragment : Fragment() {
         binding.openLogin.setOnClickListener {
             it?.findNavController()?.let {controller->
                 if (it.context.checkPermissionIsAllowed()){
-                    controller.navigate(R.id.action_startFragment_to_loginFragment)
+                    controller.navigateTo(R.id.action_startFragment_to_loginFragment, true)
                 }else {
-                    controller.navigate(R.id.action_startFragment_to_permissionFragment)
+                    controller.navigateTo(R.id.action_startFragment_to_permissionFragment, true)
                 }
             }
         }
