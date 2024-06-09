@@ -16,6 +16,7 @@ import dev.pankaj.cleanarchitecture.data.local.prefmanager.SharedPreferencesUtil
 import dev.pankaj.cleanarchitecture.databinding.ActivityControllerBinding
 import dev.pankaj.cleanarchitecture.extensions.hide
 import dev.pankaj.cleanarchitecture.extensions.show
+import dev.pankaj.cleanarchitecture.utils.navigateTo
 import javax.inject.Inject
 
 
@@ -68,7 +69,7 @@ class ControllerActivity : AppCompatActivity() {
                         binding.appbar.show()
                         updateCartStatus(true)
                     } else {
-                        navigateToStartFragment(controller)
+                        navigateToStartFragment(controller, arguments)
                     }
                 }
                 R.id.navigation_cart -> {
@@ -100,11 +101,11 @@ class ControllerActivity : AppCompatActivity() {
     }
 
     private fun navigateToHomeFragment(navController: NavController, arguments: Bundle?) {
-        navController.navigate(R.id.navigation_home, arguments)
+        navController.navigateTo(R.id.navigation_home, arguments)
     }
 
-    private fun navigateToStartFragment(navController: NavController) {
-        navController.navigate(R.id.startFragment)
+    private fun navigateToStartFragment(navController: NavController, arguments: Bundle?) {
+        navController.navigateTo(R.id.startFragment, arguments)
     }
 
 
