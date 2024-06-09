@@ -51,6 +51,7 @@ class HomeFragment : Fragment() {
     private fun initAdapter(){
         val staggeredGridLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding.rvProduct.layoutManager = staggeredGridLayoutManager
+        binding.rvProduct.adapter = productAdapter
     }
 
     private fun addObserver() {
