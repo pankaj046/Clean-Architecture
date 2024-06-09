@@ -45,7 +45,7 @@ android {
             namespace = "dev.pankaj.cleanarchitecture.dev"
             applicationId = "dev.pankaj.cleanarchitecture.dev"
             buildConfigField("String", "BASE_URL", "\"https://fakestoreapi.com\"")
-            buildConfigField("String", "APP_VERSION", "\"1.0-dev\"")
+            buildConfigField("String", "APP_VERSION", "\"$versionName-dev")
             buildConfigField("String", "FIREBASE_CONFIG_FILE", "\"google-services-dev.json\"")
         }
 
@@ -53,8 +53,8 @@ android {
             dimension = "environment"
             namespace = "dev.pankaj.cleanarchitecture"
             applicationId = "dev.pankaj.cleanarchitecture"
-            buildConfigField("String", "BASE_URL", "\"https://production.api.com\"")
-            buildConfigField("String", "APP_VERSION", "\"1.0\"")
+            buildConfigField("String", "BASE_URL", "\"https://production.fakestoreapi.com\"")
+            buildConfigField("String", "APP_VERSION", "$versionName")
             buildConfigField("String", "FIREBASE_CONFIG_FILE", "\"google-services.json\"")
         }
     }
