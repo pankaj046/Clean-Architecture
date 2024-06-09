@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import dev.pankaj.cleanarchitecture.data.remote.model.product.Product
 import dev.pankaj.cleanarchitecture.databinding.FragmentHomeBinding
+import dev.pankaj.cleanarchitecture.extensions.hide
+import dev.pankaj.cleanarchitecture.extensions.show
 import dev.pankaj.cleanarchitecture.presentation.home.adapter.ProductAdapter
 import dev.pankaj.cleanarchitecture.presentation.home.viewmodel.ProductViewModel
 import dev.pankaj.cleanarchitecture.presentation.home.viewmodel.ProductViewModelFactory
@@ -67,7 +69,13 @@ class HomeFragment : Fragment() {
     }
 
     private fun setLoadingIndicator(loading: Boolean) {
-
+        if (loading){
+            binding.loading.show()
+            binding.rvProduct.hide()
+        }else{
+            binding.loading.hide()
+            binding.rvProduct.show()
+        }
     }
 
     private fun showMessage(message: String?) {
