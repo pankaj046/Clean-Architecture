@@ -77,7 +77,7 @@ class HomeFragment : Fragment() {
             override fun onItemClick(product: Product) {
                 val bundle = Bundle()
                 bundle.putSerializable("Data", product)
-                findNavController().navigateTo(R.id.action_navigation_home_to_productDetailsFragment, bundle)
+                findNavController().navigateTo(R.id.action_navigation_home_to_productDetailsFragment, bundle, false)
             }
         })
     }
