@@ -72,7 +72,7 @@ class ControllerActivity : AppCompatActivity() {
                         navigateToStartFragment(controller, arguments)
                     }
                 }
-                R.id.navigation_cart -> {
+                R.id.navigation_cart , R.id.productDetailsFragment-> {
                     updateCartStatus(false)
                     binding.navView.hide()
                 }

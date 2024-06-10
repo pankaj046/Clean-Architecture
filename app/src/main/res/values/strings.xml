@@ -23,4 +23,5 @@
     <string name="error_username_required">Email is required</string>
     <string name="error_password_required">Password is required</string>
     <string name="cart">Cart</string>
+    <string name="add_to_cart">Add to cart</string>
 </resources>

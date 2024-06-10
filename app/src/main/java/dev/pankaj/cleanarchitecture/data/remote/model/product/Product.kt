@@ -1,6 +1,7 @@
 package dev.pankaj.cleanarchitecture.data.remote.model.product
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 data class Product (
@@ -18,4 +19,4 @@ data class Product (
   var image : String? = null,
   @SerializedName("rating")
   var rating : Rating? = Rating()
-)
+): Serializable

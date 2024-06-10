@@ -6,29 +6,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import dev.pankaj.cleanarchitecture.R
 import dev.pankaj.cleanarchitecture.data.remote.model.product.Product
 import dev.pankaj.cleanarchitecture.databinding.FragmentHomeBinding
+import dev.pankaj.cleanarchitecture.databinding.FragmentProductDetailsBinding
 import dev.pankaj.cleanarchitecture.extensions.hide
 import dev.pankaj.cleanarchitecture.extensions.show
 import dev.pankaj.cleanarchitecture.presentation.home.adapter.ProductAdapter
 import dev.pankaj.cleanarchitecture.presentation.home.viewmodel.ProductViewModel
 import dev.pankaj.cleanarchitecture.presentation.home.viewmodel.ProductViewModelFactory
 import dev.pankaj.cleanarchitecture.utils.CallBack
-import dev.pankaj.cleanarchitecture.utils.navigateTo
 import dev.pankaj.cleanarchitecture.utils.showToast
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class ProductDetailsFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentProductDetailsBinding? = null
     private val binding get() = _binding!!
 
     @Inject
@@ -43,7 +40,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         viewModel = ViewModelProvider(this, factory)[ProductViewModel::class.java]
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentProductDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -51,13 +48,13 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
         addObserver()
-        viewModel.productList()
+        lifecycleScope.launchWhenStarted {
+            viewModel.productList()
+        }
     }
 
     private fun initAdapter(){
-        val staggeredGridLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        binding.rvProduct.layoutManager = staggeredGridLayoutManager
-        binding.rvProduct.adapter = productAdapter
+
     }
 
     private fun addObserver() {
@@ -73,23 +70,10 @@ class HomeFragment : Fragment() {
 
     private fun handleLoginSuccess(data: List<Product>) {
         productAdapter.updateProduct(data)
-        productAdapter.setListener(object : ProductAdapter.ItemClickListener {
-            override fun onItemClick(product: Product) {
-                val bundle = Bundle()
-                bundle.putSerializable("Data", product)
-                findNavController().navigateTo(R.id.action_navigation_home_to_productDetailsFragment, bundle)
-            }
-        })
     }
 
     private fun setLoadingIndicator(loading: Boolean) {
-        if (loading){
-            binding.loading.show()
-            binding.rvProduct.hide()
-        }else{
-            binding.loading.hide()
-            binding.rvProduct.show()
-        }
+
     }
 
     private fun showMessage(message: String?) {

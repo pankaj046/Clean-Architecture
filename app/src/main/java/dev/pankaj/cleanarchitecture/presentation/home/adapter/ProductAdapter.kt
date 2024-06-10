@@ -11,7 +11,7 @@ import dev.pankaj.cleanarchitecture.databinding.ItemProductBinding
 class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     private var data: List<Product> = mutableListOf()
-
+    private var itemClickListener: ItemClickListener?=null
     inner class ProductViewHolder(val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -32,6 +32,7 @@ class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() 
                 .load(product.image)
                 .into(imageView)
         }
+        holder.itemView.setOnClickListener { itemClickListener?.onItemClick(product) }
     }
 
     override fun getItemCount(): Int = data.size
@@ -41,6 +42,14 @@ class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() 
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         data = newData
         diffResult.dispatchUpdatesTo(this)
+    }
+
+    fun setListener(itemClickListener: ItemClickListener) {
+        this.itemClickListener = itemClickListener
+    }
+
+    interface ItemClickListener{
+        fun onItemClick(product: Product)
     }
 }
 
