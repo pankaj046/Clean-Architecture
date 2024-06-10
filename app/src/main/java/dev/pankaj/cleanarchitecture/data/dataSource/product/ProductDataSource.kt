@@ -10,4 +10,8 @@ class ProductDataSource @Inject constructor(private val api: ApiService) : IProd
     override suspend fun product(): Response<List<Product>> {
         return api.products()
     }
+
+    override suspend fun getProduct(productId: Int): Response<Product> {
+        return api.product(productId)
+    }
 }

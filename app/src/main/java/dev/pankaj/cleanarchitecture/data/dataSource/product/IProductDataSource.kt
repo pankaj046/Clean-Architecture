@@ -5,4 +5,5 @@ import retrofit2.Response
 
 interface IProductDataSource {
     suspend fun product(): Response<List<Product>>
+    suspend fun getProduct(productId: Int): Response<Product>
 }

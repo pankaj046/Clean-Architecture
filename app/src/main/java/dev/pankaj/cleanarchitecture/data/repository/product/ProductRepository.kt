@@ -23,4 +23,19 @@ class ProductRepository(
             CallBack.Error(e)
         }
     }
+
+    override suspend fun getProduct(productId: Int): CallBack<Product> {
+        return try {
+            val response = productDataSource.getProduct(productId)
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    CallBack.Success(it)
+                } ?: CallBack.Message("Response body is null")
+            } else {
+                CallBack.Message("Product failed with code: ${response.code()}")
+            }
+        } catch (e: Exception) {
+            CallBack.Error(e)
+        }
+    }
 }

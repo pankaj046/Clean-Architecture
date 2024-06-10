@@ -61,7 +61,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun addObserver() {
-        viewModel.productResponse.observe(viewLifecycleOwner) { result ->
+        viewModel.productListResponse.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is CallBack.Loading -> setLoadingIndicator(result.isLoading)
                 is CallBack.Success -> handleLoginSuccess(result.data)

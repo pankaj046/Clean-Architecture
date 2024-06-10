@@ -5,4 +5,5 @@ import dev.pankaj.cleanarchitecture.utils.*
 
 interface IProductRepository {
     suspend fun product(): CallBack<List<Product>>
+    suspend fun getProduct(productId: Int): CallBack<Product>
 }
