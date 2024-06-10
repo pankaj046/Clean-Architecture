@@ -4,11 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,14 +61,14 @@ class HomeFragment : Fragment() {
         viewModel.productListResponse.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is CallBack.Loading -> setLoadingIndicator(result.isLoading)
-                is CallBack.Success -> handleLoginSuccess(result.data)
+                is CallBack.Success -> handleProductListSuccess(result.data)
                 is CallBack.Error -> showMessage(result.exception.message)
                 is CallBack.Message -> showMessage(result.msg)
             }
         }
     }
 
-    private fun handleLoginSuccess(data: List<Product>) {
+    private fun handleProductListSuccess(data: List<Product>) {
         productAdapter.updateProduct(data)
         productAdapter.setListener(object : ProductAdapter.ItemClickListener {
             override fun onItemClick(product: Product) {

@@ -21,8 +21,8 @@ class ProductViewModel(
     private val _productListResponse: MutableLiveData<CallBack<List<Product>>> = MutableLiveData()
     val productListResponse: LiveData<CallBack<List<Product>>> = _productListResponse
 
-    private val _productResponse: MutableLiveData<CallBack<List<Product>>> = MutableLiveData()
-    val productResponse: LiveData<CallBack<List<Product>>> = _productResponse
+    private val _productResponse: MutableLiveData<CallBack<Product>> = MutableLiveData()
+    val productResponse: LiveData<CallBack<Product>> = _productResponse
 
 
     fun productList() = viewModelScope.launch {
@@ -38,4 +38,16 @@ class ProductViewModel(
         }
     }
 
+    fun product(productId: Int) = viewModelScope.launch {
+        _productResponse.value = CallBack.Loading(true)
+        if (NetworkUtils.isNetworkAvailable(app)){
+            productUseCase.getProduct(productId).apply {
+                _productResponse.value = this
+                _productResponse.value = CallBack.Loading(false)
+            }
+        }else {
+            _productResponse.value = CallBack.Message("No Internet connection")
+            _productResponse.value = CallBack.Loading(false)
+        }
+    }
 }

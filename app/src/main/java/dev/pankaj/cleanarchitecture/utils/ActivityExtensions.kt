@@ -9,11 +9,14 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
+import android.os.Bundle
 import android.provider.Settings
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import dev.pankaj.cleanarchitecture.BuildConfig
+import java.io.Serializable
 
 fun Activity.showToast(text: String, debug: Boolean = false) {
     Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
@@ -78,4 +81,14 @@ fun Activity.startNewActivity(clazz: Class<*>) {
     startActivity(Intent(this, clazz).apply {
         flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
     })
+}
+
+inline fun <reified T : Serializable> Bundle.serializable(key: String): T? = when {
+    Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> getSerializable(key, T::class.java)
+    else -> @Suppress("DEPRECATION") getSerializable(key) as? T
+}
+
+inline fun <reified T : Serializable> Intent.serializable(key: String): T? = when {
+    Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> getSerializableExtra(key, T::class.java)
+    else -> @Suppress("DEPRECATION") getSerializableExtra(key) as? T
 }
